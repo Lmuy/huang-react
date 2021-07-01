@@ -3,6 +3,7 @@ import './style.css'
 import Item from './Item'
 
 class App extends Component {
+  // 在某一时刻,自动执行的函数
   constructor(props) {
     super(props)
     this.state = {
@@ -11,6 +12,7 @@ class App extends Component {
     }
   }
 
+  
   render() {
     return (
       <Fragment>
