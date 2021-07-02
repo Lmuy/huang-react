@@ -1,9 +1,25 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types'
+// import axios from 'axios';
 class Item extends Component {
   // constructor(porps) {
   //   super(porps)
   // }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    if (nextProps.content !== this.props.content) {
+      return true
+    } else {
+      return false
+    }
+  }
+
+  componentDidMount() {
+    // 该生命周期中请求数据
+    // axios.post('https://web-api.juejin.im/v3/web/wbbr/bgeda')
+    //   .then((res) => {console.log('数据获取成功' + JSON.stringify(res))})
+    //   .catch((error) => {console.log(error)})
+  }
 
   render() { 
     return (

@@ -1,6 +1,7 @@
 import React,{Component, Fragment} from 'react';
 import './style.css'
-import Item from './Item'
+// import Item from './Item'
+import Boss from './Boss'
 
 class App extends Component {
   // 在某一时刻,自动执行的函数
@@ -16,7 +17,7 @@ class App extends Component {
   render() {
     return (
       <Fragment>
-        <div>
+        {/* <div>
           <label htmlFor="myInput">增加数据服务：</label>
           <input
             id="myInput"
@@ -40,7 +41,8 @@ class App extends Component {
               })
             }
           </ul>
-        </div>
+        </div> */}
+        <Boss />
       </Fragment>
     )
   }
