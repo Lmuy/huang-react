@@ -1,16 +1,23 @@
 import React,{Component, Fragment} from 'react';
-import './style.css'
+import 'antd/dist/antd.css'
+import { Input, Button, List } from 'antd'
+import store from './store'
+import { CHANGE_INPUT, ADD_ITEM, DEL_ITEM } from './store/actionTypes'
+// import './style.css'
 // import Item from './Item'
-import Boss from './Boss'
+// import Boss from './Boss'
+// import { CSSTransition, TransitionGroup } from 'react-transition-group'
 
+const data = [
+  
+]
 class App extends Component {
   // 在某一时刻,自动执行的函数
   constructor(props) {
     super(props)
-    this.state = {
-      inputValue: '',
-      list: ['fdsa', 'ddd']
-    }
+    this.state = store.getState()
+    this.storeChange = this.storeChange.bind(this)
+    store.subscribe(this.storeChange)
   }
 
   
@@ -29,20 +36,42 @@ class App extends Component {
         </div>
         <div>
           <ul>
-            {
-              this.state.list.map((item, index) => {
-                return (
-                  <Item
-                    content={item}
-                    index={index}
-                    key={index+item}
-                    delItem={(e) => this.delItem(e)}/>
-                )
-              })
-            }
+            <TransitionGroup>
+              {
+                this.state.list.map((item, index) => {
+                  return (
+                    <CSSTransition
+                      timeout={2000}
+                      classNames="boss-text"
+                      unmountOnExit
+                      appear={true}
+                      key={index+item}  
+                    >
+                      <Item
+                        content={item}
+                        index={index}
+                        key={index+item}
+                        delItem={(e) => this.delItem(e)}/>
+                    </CSSTransition>
+                  )
+                })
+              }
+            </TransitionGroup>
           </ul>
         </div> */}
-        <Boss />
+        {/* <Boss /> */}
+        <div style={{margin:'8px'}}>
+          <Input
+            placeholder={this.state.inputValue}
+            style={{width:'250px',marginRight:'8px'}}
+            onChange={(e) => this.changeInputValue(e)}
+            value={this.state.inputValue}
+          />
+          <Button type='primary' onClick={() => this.clickBtn()}>增加</Button>
+          <div style={{marginTop:'8px',width:'300px'}}>
+            <List bordered dataSource={this.state.list} renderItem={(item, index) => (<List.Item onClick={() => this.delItem(index)}>{item}</List.Item>)} />
+          </div>
+        </div>
       </Fragment>
     )
   }
@@ -60,11 +89,32 @@ class App extends Component {
     })
   }
   delItem(index) {
-    let list = this.state.list;
-    list.splice(index, 1)
-    this.setState({
-      list: list
-    })
+    // let list = this.state.list;
+    // list.splice(index, 1)
+    // this.setState({
+    //   list: list
+    // })
+    const action = {
+      type: DEL_ITEM,
+      value: index
+    }
+    store.dispatch(action)
+  }
+  changeInputValue(e) {
+    const action = {
+      type: CHANGE_INPUT,
+      value: e.target.value
+    }
+    store.dispatch(action)
+  }
+  storeChange() {
+    this.setState(store.getState())
+  }
+  clickBtn() {
+    const action = {
+      type: ADD_ITEM
+    }
+    store.dispatch(action)
   }
 }
 
