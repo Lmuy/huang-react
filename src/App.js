@@ -1,9 +1,11 @@
 import React,{Component, Fragment} from 'react';
 import 'antd/dist/antd.css'
-import { Input, Button, List } from 'antd'
+// import { Input, Button, List } from 'antd'
 import store from './store'
 // import { CHANGE_INPUT, ADD_ITEM, DEL_ITEM } from './store/actionTypes'
-import { changeInputAction, addItemAction, delItemAction } from './store/actionCreators';
+import { changeInputAction, addItemAction, delItemAction, getListAction, getTodoList } from './store/actionCreators';
+import TodoListUI from './TodoListUI'
+import axios from 'axios'
 // import './style.css'
 // import Item from './Item'
 // import Boss from './Boss'
@@ -61,7 +63,7 @@ class App extends Component {
           </ul>
         </div> */}
         {/* <Boss /> */}
-        <div style={{margin:'8px'}}>
+        {/* <div style={{margin:'8px'}}>
           <Input
             placeholder={this.state.inputValue}
             style={{width:'250px',marginRight:'8px'}}
@@ -72,9 +74,21 @@ class App extends Component {
           <div style={{marginTop:'8px',width:'300px'}}>
             <List bordered dataSource={this.state.list} renderItem={(item, index) => (<List.Item onClick={() => this.delItem(index)}>{item}</List.Item>)} />
           </div>
-        </div>
+        </div> */}
+        <TodoListUI
+          inputValue={this.state.inputValue}
+          changeInputValue={this.changeInputValue}
+          clickBtn={this.clickBtn}  
+          list={this.state.list}
+          delItem={this.delItem}
+        />
       </Fragment>
     )
+  }
+
+  componentDidMount() {
+    const action = getTodoList();
+    store.dispatch(action)
   }
 
   inputChange(e) {

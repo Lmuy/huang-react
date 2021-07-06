@@ -1,11 +1,7 @@
-import { CHANGE_INPUT, ADD_ITEM, DEL_ITEM } from './actionTypes'
+import { CHANGE_INPUT, ADD_ITEM, DEL_ITEM, GET_LIST } from './actionTypes'
 const  defaultState = {
   inputValue: 'write something',
-  list: [
-    '早上任务',
-    '中午任务',
-    '晚上任务'
-  ]
+  list: []
 }
 export default (state = defaultState, action)=>{
   // reducer里只能接受state，不能改变state
@@ -24,6 +20,11 @@ export default (state = defaultState, action)=>{
     let newState = JSON.parse(JSON.stringify(state));
     newState.list.splice(action.value, 1);
     return newState
+  }
+  if (action.type === GET_LIST) {
+    let newState = JSON.parse(JSON.stringify(state));
+    newState.list = action.data;
+    return newState;
   }
   return state
 }
