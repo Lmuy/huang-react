@@ -3,7 +3,7 @@ import 'antd/dist/antd.css'
 // import { Input, Button, List } from 'antd'
 import store from './store'
 // import { CHANGE_INPUT, ADD_ITEM, DEL_ITEM } from './store/actionTypes'
-import { changeInputAction, addItemAction, delItemAction, getListAction, getTodoList } from './store/actionCreators';
+import { getMyListAction, changeInputAction, addItemAction, delItemAction, getListAction, getTodoList } from './store/actionCreators';
 import TodoListUI from './TodoListUI'
 import axios from 'axios'
 // import './style.css'
@@ -89,6 +89,9 @@ class App extends Component {
   componentDidMount() {
     const action = getTodoList();
     store.dispatch(action)
+    // const action = getMyListAction();
+    // store.dispatch(action)
+
   }
 
   inputChange(e) {
