@@ -4,13 +4,14 @@ import ReactDom from 'react-dom';
 // import TodoList from './TodoList'
 // import ReactHooks from './reactHooks'
 // import UseContext from './useContext'
-import UseReducer from './useReducer'
+// import UseReducer from './useReducer'
+import Example from './Example'
 import { Provider } from 'react-redux'
 import store from './store'
 
 const App = (
   <Provider store={store}>
-    <UseReducer />
+    <Example />
   </Provider>
 )
 
